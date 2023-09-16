@@ -2,5 +2,6 @@
 
 Here I'll add small exercises to practice the C language.
 
-Initially, I'm following "The C Programming Language Book" exercise
-suggestions.
+Currently, I'm following "The C Programming Language Book" exercise
+suggestions and PDS1 courses (UFMG, 2023/2).
+

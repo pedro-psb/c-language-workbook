@@ -1,7 +1,9 @@
 #include <stdio.h>
 
-
-int main(){
+/** Troca de valores
+/* Troque os valores de a e b sem alterar código existente.
+*/
+int main() {
   // não mudar
   float a = 3.14159, b = 2.71828;
 

@@ -1,7 +1,9 @@
 #include <stdio.h>
 
-
-int main(){
+/** Conta Poupança
+ * Aplique as operações para obter o valor final
+ */
+int main() {
   // mes 1 (inicio da conta)
   float saldo = 789.54;
   float rendimento_mensal = 0.56 / 100;
@@ -17,6 +19,6 @@ int main(){
   // mes 4
   saldo = saldo * (1.0 + rendimento_mensal);
   printf("A conta terá R$%.2f no quarto mês.\n", saldo);
-  
+
   return 0;
 }

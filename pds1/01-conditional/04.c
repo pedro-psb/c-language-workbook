@@ -1,10 +1,23 @@
 #include <stdio.h>
 
-float calculo_imc(float peso, float altura);
-float diferenca_para_imc_recomendado(float imc_atual);
-float imc_para_peso(float altura, float imc);
+#define IMC_SAUDAVEL_MIN 18.5
+#define IMC_SAUDAVEL_MAX 25
 
-// cálculo do IMC
+/** Calcula o imc baseado no peso e altura */
+float calculo_imc(float peso, float altura);
+
+/** Calcula a diferença entre o peso real e o peso ideal (baseado no imc)
+ *
+ * Delta negativo significa que o peso real está abaixo do recomenado.
+ * Delta positivo, significa que o peso real está acima do recomenado.
+ */
+float calculo_delta_peso_ideal(float peso, float altura);
+
+/** IMC
+ *
+ * Exercício: Calcular IMC de Brutus e Olivia e o peso necessário para que
+ * eles fiquem na faixa saudável.
+ */
 int main() {
   // dados iniciais
   float peso_brutus, peso_olivia, altura_brutus, altura_olivia;
@@ -13,7 +26,7 @@ int main() {
 
   peso_olivia = 45;
   altura_olivia = 1.76;
-  
+
   // calcular IMC de Brutos e Olivia
   float imc_brutus = calculo_imc(peso_brutus, altura_brutus);
   float imc_olivia = calculo_imc(peso_olivia, altura_olivia);
@@ -22,57 +35,40 @@ int main() {
   printf("\n");
   printf("IMC de Olivia é %.2f.", imc_olivia);
 
-  // calcular diferenca do (imc-ideal) - (imc-recomendado)
-  float delta_imc_brutus = diferenca_para_imc_recomendado(imc_brutus);
-  float delta_imc_olivia = diferenca_para_imc_recomendado(peso_olivia);
-
-  printf("delta-imc-olivia %.2f", delta_imc_olivia);
-  printf("delta-imc-brutus %.2f", delta_imc_brutus);
-
-  // peso restante para imc
-  float peso_restante_brutus = imc_para_peso(altura_brutus, delta_imc_brutus);
-  float peso_restante_olivia = imc_para_peso(altura_olivia, delta_imc_olivia);
+  // calcular diferenca do (peso-real) - (peso-ideal-imc)
+  float delta_peso_ideal_brutus =
+      calculo_delta_peso_ideal(peso_brutus, altura_brutus);
+  float delta_peso_ideal_olivia =
+      calculo_delta_peso_ideal(peso_olivia, altura_olivia);
 
   // imprimir resultados
-  if (peso_restante_brutus < 0) {
-    printf("\nBrutus precisa ganhar %.2fkg.", peso_restante_brutus);
+  if (delta_peso_ideal_brutus < 0) {
+    printf("\nBrutus precisa ganhar %.2fkg.", -delta_peso_ideal_brutus);
   } else {
-    printf("\nBrutus precisa perder %.2fkg.", peso_restante_brutus);
+    printf("\nBrutus precisa perder %.2fkg.", delta_peso_ideal_brutus);
   }
 
-  if (peso_restante_olivia < 0) {
-    printf("\nOlivia precisa ganhar %.2fkg.", peso_restante_olivia);
+  if (delta_peso_ideal_olivia < 0) {
+    printf("\nolivia precisa ganhar %.2fkg.", -delta_peso_ideal_olivia);
   } else {
-    printf("\nOlivia precisa perder %.2fkg.", peso_restante_olivia);
+    printf("\nolivia precisa perder %.2fkg.", delta_peso_ideal_olivia);
   }
+
   printf("\n");
-
   return 0;
 }
 
-float calculo_imc(float peso, float altura) {
-  return peso / (altura * altura);
-}
+float calculo_imc(float peso, float altura) { return peso / (altura * altura); }
 
-float diferenca_para_imc_recomendado(float imc_atual) {
-  float delta = 0;
-  float imc_saudavel_min = 18.5;
-  float imc_saudavel_max = 25;
+float calculo_delta_peso_ideal(float peso, float altura) {
+  float peso_ideal_min = IMC_SAUDAVEL_MIN * (altura * altura);
+  float peso_ideal_max = IMC_SAUDAVEL_MAX* (altura * altura);
 
-  if (imc_atual < imc_saudavel_min) {
-    delta = imc_saudavel_min - imc_atual;
-  } else if (imc_atual > imc_saudavel_max) {
-    delta = imc_atual - imc_saudavel_max;
+  if (peso < peso_ideal_min) {
+    return peso - peso_ideal_min;
+  } else if (peso > peso_ideal_max) {
+    return peso - peso_ideal_max;
+  } else {
+    return 0;
   }
-
-  // debug
-  // printf("atual: %.2f, delta: %.2f", imc_atual, delta);
-
-  return delta;
-}
-
-float imc_para_peso(float altura, float imc) {
-  // printf("\n");
-  // printf("i");
-  return (imc * (altura * altura));
 }

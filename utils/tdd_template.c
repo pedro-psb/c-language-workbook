@@ -1,3 +1,10 @@
+/* My program
+ * 
+ * This is a template for quick TDD development in C.
+ * 
+ * Run the program with MYPRG_TEST=1 (...) to run the test suite.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 

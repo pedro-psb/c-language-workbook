@@ -3,8 +3,15 @@
 Here I'll add small exercises to practice the C language.
 
 Currently, I'm using the following exercise resources:
-* "The C Programming Language Book"
-* PDS1 courses (UFMG, 2023/2).
+
+* "The C Programming Language Book" (clp)
+* PDS-1 courses (UFMG, 2023/2). (pds)
+
+The folder structure is as following:
+
+* `exercises/` - contain the exercise instructions and starting point material.
+* `workspace/` - my personal resolution to the exercises.
+* `utils/` - some utility resources that may help boilerplate.
 
 ## Aditional Resources
 
